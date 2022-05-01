@@ -1,17 +1,7 @@
 const { google } = require('googleapis');
 
 exports.sheetsPost = async (req, res) => {
-	const {
-		name,
-		email,
-		phone,
-		department,
-		college,
-		event,
-		paid,
-		transactionID,
-		enrollmentDate
-	} = req.body;
+	const { name, email, phone, department, year, college, event } = req.body;
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
 		scopes: 'https://www.googleapis.com/auth/spreadsheets'
@@ -25,30 +15,18 @@ exports.sheetsPost = async (req, res) => {
 		auth,
 		spreadsheetId: '1LZsclGLfG7tWSvqLhoRHaXBGbRhjdRziSSwokBlA__0',
 		range:
-			event === 'technical'
+			event === 'Technical'
 				? 'Technical'
-				: event === 'ctf'
-				? 'CTF'
-				: event === 'non-technical'
+				: event === 'TrojansCTF'
+				? 'TrojansCTF'
+				: event === 'Non-Technical'
 				? 'Non-Technical'
-				: event === 'games'
-				? 'Games'
+				: event === 'Gaming'
+				? 'Gaming'
 				: 'Workshops',
 		valueInputOption: 'USER_ENTERED',
 		resource: {
-			values: [
-				[
-					name,
-					email,
-					phone,
-					department,
-					college,
-					event,
-					paid,
-					transactionID,
-					enrollmentDate
-				]
-			]
+			values: [[name, email, phone, department, year, college, event]]
 		}
 	});
 };
