@@ -1,17 +1,7 @@
 const { google } = require('googleapis');
 
 exports.sheetsPost = async (req, res) => {
-	const {
-		name,
-		email,
-		phone,
-		department,
-		college,
-		event,
-		paid,
-		transactionID,
-		enrollmentDate
-	} = req.body;
+	const { name, email, phone, department, year, college, event } = req.body;
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
 		scopes: 'https://www.googleapis.com/auth/spreadsheets'
@@ -21,34 +11,26 @@ exports.sheetsPost = async (req, res) => {
 
 	const googleSheets = google.sheets({ version: 'v4', auth: client });
 
-	await googleSheets.spreadsheets.values.append({
-		auth,
-		spreadsheetId: '1LZsclGLfG7tWSvqLhoRHaXBGbRhjdRziSSwokBlA__0',
-		range:
-			event === 'technical'
-				? 'Technical'
-				: event === 'ctf'
-				? 'CTF'
-				: event === 'non-technical'
-				? 'Non-Technical'
-				: event === 'games'
-				? 'Games'
-				: 'Workshops',
-		valueInputOption: 'USER_ENTERED',
-		resource: {
-			values: [
-				[
-					name,
-					email,
-					phone,
-					department,
-					college,
-					event,
-					paid,
-					transactionID,
-					enrollmentDate
-				]
-			]
-		}
-	});
+	await googleSheets.spreadsheets.values
+		.append({
+			auth,
+			spreadsheetId: '1LZsclGLfG7tWSvqLhoRHaXBGbRhjdRziSSwokBlA__0',
+			range:
+				event === 'Technical'
+					? 'Technical'
+					: event === 'Trojans CTF'
+					? 'Trojans CTF'
+					: event === 'Non-Technical'
+					? 'Non-Technical'
+					: event === 'Gaming'
+					? 'Gaming'
+					: 'Workshops',
+			valueInputOption: 'USER_ENTERED',
+			resource: {
+				values: [[name, email, phone, department, year, college, event]]
+			}
+		})
+		.then((response) => {
+			res.status(200).json('ok');
+		});
 };
