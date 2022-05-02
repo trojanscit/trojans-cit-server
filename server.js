@@ -19,10 +19,6 @@ app.use(bodyParser.json());
 app.use("/api", sheetsRoute);
 app.use("/", razorpayRoute);
 
-app.get("/logo", (req, res) => {
-    res.sendFile(path.join(__dirname, "logo.png"));
-});
-
 app.listen(process.env.PORT, () =>
     console.log(`SERVER IS RUNNING ON PORT ${process.env.PORT}`)
 );
