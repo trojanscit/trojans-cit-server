@@ -9,7 +9,6 @@ const razorpay = new Razorpay({
 exports.razorPayPost = async (req, res) => {
 	const payment_capture = 1;
 	const amount = req.body.amount;
-	console.log(req.body);
 	const currency = 'INR';
 
 	const options = {
@@ -21,7 +20,6 @@ exports.razorPayPost = async (req, res) => {
 
 	try {
 		const response = await razorpay.orders.create(options);
-		console.log(response);
 		res.json({
 			id: response.id,
 			currency: response.currency,
@@ -33,17 +31,13 @@ exports.razorPayPost = async (req, res) => {
 };
 
 exports.razorPayVerification = async (req, res) => {
-	const secret = '';
-
-	console.log(req.body);
+	const secret = process.env.RAZORPAY_LIVE_SECRET;
 
 	const crypto = require('crypto');
 
 	const shasum = crypto.createHmac('sha256', secret);
 	shasum.update(JSON.stringify(req.body));
 	const digest = shasum.digest('hex');
-
-	console.log(digest, req.headers['x-razorpay-signature']);
 
 	if (digest === req.headers['x-razorpay-signature']) {
 		console.log('verified');

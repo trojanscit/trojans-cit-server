@@ -1,15 +1,17 @@
 const nodemailer = require('nodemailer');
+var rn = require('random-number');
 
-exports.contactPost = async (req, res) => {
+const generateOTP = () =>
+	rn({
+		min: 100000,
+		max: 999999,
+		integer: true
+	});
+
+exports.authPost = async (req, res) => {
+	const otp = generateOTP();
 	const output = `
-    <p>You have a new contact request</p>
-    <h3>Contact Details</h3>
-    <ul>
-        <li>Name: ${req.body.name}</li>
-        <li>Email: ${req.body.email}</li>
-    </ul>
-    <h3>Message</h3>
-    <p>${req.body.message}</p>
+        <p> ${otp} is your OTP/p>
     `;
 	let transporter = nodemailer.createTransport({
 		service: 'Gmail',
@@ -21,9 +23,9 @@ exports.contactPost = async (req, res) => {
 	});
 
 	let mailOptions = {
-		from: process.env.EMAIL,
+		from: process.env.CONTACT_EMAIL,
 		to: req.body.email,
-		subject: 'Customer Contact Request',
+		subject: 'TROJANS event registration',
 		html: output
 	};
 
@@ -32,6 +34,8 @@ exports.contactPost = async (req, res) => {
 			console.log(error);
 			return res.json('error');
 		}
-		res.status(200).json('success');
+		res.status(200).json({
+			otp
+		});
 	});
 };
