@@ -21,9 +21,6 @@ app.use('/api', sheetsRoute);
 app.use('/api', razorpayRoute);
 app.use('/api', contactRoute);
 app.use('/api', AuthRoute);
-app.get('/api', (req, res) => {
-	res.json('hii');
-});
 
 app.listen(process.env.PORT, () =>
 	console.log(`SERVER IS RUNNING ON PORT ${process.env.PORT}`)
