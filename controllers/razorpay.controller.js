@@ -2,8 +2,8 @@ const shortid = require('shortid');
 const Razorpay = require('razorpay');
 
 const razorpay = new Razorpay({
-	key_id: 'rzp_test_mAa9xKRpHr07z0',
-	key_secret: 'JihrpKhfeDLqVAtx6iVcOQVz'
+	key_id: process.env.RAZORPAY_LIVE_API_KEY,
+	key_secret: process.env.RAZORPAY_LIVE_SECRET
 });
 
 exports.razorPayPost = async (req, res) => {
@@ -31,7 +31,7 @@ exports.razorPayPost = async (req, res) => {
 };
 
 exports.razorPayVerification = async (req, res) => {
-	const secret = process.env.RAZORPAY_LIVE_SECRET;
+	const secret = '';
 
 	const crypto = require('crypto');
 
