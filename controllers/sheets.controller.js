@@ -1,7 +1,18 @@
 const { google } = require('googleapis');
 
 exports.sheetsPost = async (req, res) => {
-	const { name, email, phone, department, year, college, event } = req.body;
+	const {
+		name,
+		email,
+		phone,
+		department,
+		year,
+		college,
+		event,
+		transactionID,
+		orderID,
+		enrollmentDate
+	} = req.body;
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
 		scopes: 'https://www.googleapis.com/auth/spreadsheets'
@@ -27,7 +38,20 @@ exports.sheetsPost = async (req, res) => {
 					: 'Workshops',
 			valueInputOption: 'USER_ENTERED',
 			resource: {
-				values: [[name, email, phone, department, year, college, event]]
+				values: [
+					[
+						name,
+						email,
+						phone,
+						department,
+						year,
+						college,
+						event,
+						transactionID,
+						orderID,
+						enrollmentDate
+					]
+				]
 			}
 		})
 		.then((response) => {
