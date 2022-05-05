@@ -41,11 +41,6 @@ exports.razorPayVerification = async (req, res) => {
 
 	if (digest === req.headers['x-razorpay-signature']) {
 		console.log('verified');
-
-		// require("fs").writeFileSync(
-		//     "./verification.json",
-		//     JSON.stringify(req.body, null, 4)
-		// );
 	} else {
 		console.log('not verified');
 	}
