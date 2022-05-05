@@ -31,7 +31,7 @@ exports.razorPayPost = async (req, res) => {
 };
 
 exports.razorPayVerification = async (req, res) => {
-	const secret = '';
+	const secret = process.env.RAZORPAY_LIVE_SECRET;
 
 	const crypto = require('crypto');
 
