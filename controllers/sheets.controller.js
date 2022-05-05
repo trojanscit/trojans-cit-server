@@ -10,8 +10,7 @@ exports.sheetsPost = async (req, res) => {
 		college,
 		event,
 		transactionID,
-		orderID,
-		enrollmentDate
+		orderID
 	} = req.body;
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
@@ -49,7 +48,7 @@ exports.sheetsPost = async (req, res) => {
 						event,
 						transactionID,
 						orderID,
-						enrollmentDate
+						new Date().toDateString()
 					]
 				]
 			}

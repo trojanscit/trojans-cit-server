@@ -11,7 +11,7 @@ const generateOTP = () =>
 exports.authPost = async (req, res) => {
 	const otp = generateOTP();
 	const output = `
-        <p> ${otp} is your OTP/p>
+        <p>${otp} is your OTP</p>
     `;
 	let transporter = nodemailer.createTransport({
 		service: 'Gmail',
