@@ -13,17 +13,17 @@ exports.authPost = async (req, res) => {
 	const output = `
         <p>${otp} is your OTP</p>
     `;
-	let transporter = nodemailer.createTransport({
+	let transporter = await nodemailer.createTransport({
 		service: 'Gmail',
 		host: 'smtp.gmail.com',
 		auth: {
-			user: process.env.EMAIL,
-			pass: process.env.PASSWORD
+			user:process.env.EMAIL,
+			pass:process.env.PASSWORD
 		}
 	});
 
 	let mailOptions = {
-		from: process.env.CONTACT_EMAIL,
+		from: process.env.EMAIL,
 		to: req.body.email,
 		subject: 'TROJANS event registration',
 		html: output
