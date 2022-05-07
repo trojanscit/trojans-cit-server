@@ -12,7 +12,6 @@ exports.sheetsPost = async (req, res) => {
 		workshop,
 		gaming
 	} = req.body;
-	console.log(req.body);
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
 		scopes: 'https://www.googleapis.com/auth/spreadsheets'
