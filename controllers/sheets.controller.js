@@ -9,9 +9,10 @@ exports.sheetsPost = async (req, res) => {
 		year,
 		college,
 		event,
-		transactionID,
-		orderID
+		workshop,
+		gaming
 	} = req.body;
+	console.log(req.body);
 	const auth = new google.auth.GoogleAuth({
 		keyFile: './credentials.json',
 		scopes: 'https://www.googleapis.com/auth/spreadsheets'
@@ -26,8 +27,8 @@ exports.sheetsPost = async (req, res) => {
 			auth,
 			spreadsheetId: '1LZsclGLfG7tWSvqLhoRHaXBGbRhjdRziSSwokBlA__0',
 			range:
-				event === 'Technical'
-					? 'Technical'
+				event === 'Technical and Non-Technical'
+					? 'Technical and Non-Technical'
 					: event === 'Trojans CTF'
 					? 'Trojans CTF'
 					: event === 'Non-Technical'
@@ -45,9 +46,12 @@ exports.sheetsPost = async (req, res) => {
 						department,
 						year,
 						college,
-						event,
-						transactionID,
-						orderID,
+						event === 'Workshops'
+							? workshop
+							: event === 'Gaming'
+							? gaming
+							: event,
+						false,
 						new Date().toDateString()
 					]
 				]
