@@ -30,8 +30,6 @@ exports.sheetsPost = async (req, res) => {
 					? 'Technical and Non-Technical'
 					: event === 'Trojans CTF'
 					? 'Trojans CTF'
-					: event === 'Non-Technical'
-					? 'Non-Technical'
 					: event === 'Gaming'
 					? 'Gaming'
 					: 'Workshops',
