@@ -30,8 +30,10 @@ exports.sheetsPost = async (req, res) => {
 				auth,
 				spreadsheetId: '1LZsclGLfG7tWSvqLhoRHaXBGbRhjdRziSSwokBlA__0',
 				range:
-					event === 'Technical and Non-Technical'
-						? 'Technical and Non-Technical'
+					event === 'Technical'
+						? 'Technical'
+						: event === 'Non-Technical'
+						? 'Non-Technical'
 						: event === 'Trojans CTF'
 						? 'Trojans CTF'
 						: event === 'Gaming'
