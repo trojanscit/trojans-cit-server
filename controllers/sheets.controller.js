@@ -61,7 +61,12 @@ exports.sheetsPost = async (req, res) => {
 				}
 			})
 			.then((response) => {
+				console.log(response);
 				res.status(200).json('ok');
+			})
+			.catch((err) => {
+				console.log(err);
+				res.status(500).json('error');
 			});
 	} else {
 		await googleSheets.spreadsheets.values
